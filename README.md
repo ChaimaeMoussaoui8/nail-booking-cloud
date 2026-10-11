@@ -35,7 +35,7 @@ Una aplicación que automatiza la gestión de citas del salón. El cliente consu
 
 ### Lógica de negocio
 
-La aplicación no se limita a guardar y mostrar datos (no es un CRUD trivial). Aplica las siguientes reglas:
+La aplicación no se limita a guardar y mostrar datos. Aplica las siguientes reglas:
 
 - **Cálculo de precio y duración:** cada cita es una combinación de un servicio base (ej. manicura BIAB) y extras (ej. francesa, retirada de gel, diseño en varias uñas). El sistema calcula el precio y la duración totales, incluyendo extras cuyo precio depende del número de uñas.
 - **Búsqueda de huecos:** solo se muestran los huecos en los que un técnico trabaja y tiene libre todo el tiempo que dura el servicio.
@@ -257,12 +257,3 @@ Se siguen los commits semánticos:
 - Plantillas: `.github/ISSUE_TEMPLATE/user_story.md` y `.github/PULL_REQUEST_TEMPLATE.md`.
 
 ---
-
-## 7. Mejoras futuras
-
-Funcionalidades que quedan fuera del alcance de esta versión:
-
-- Notificaciones por email (confirmación y recordatorios).
-- Habilidades por técnico (no todos realizan todos los servicios).
-- Servicio "a 4 manos" (dos técnicos simultáneamente).
-- Gestión de varios salones en la misma plataforma.
