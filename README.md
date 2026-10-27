@@ -14,7 +14,7 @@ Aplicación nativa de la nube (*Cloud-Native Application*) para gestionar las ci
 4. [Arquitectura](#4-arquitectura)
 5. [Especificación de la API REST](#5-especificación-de-la-api-rest)
 6. [Gestión del proyecto](#6-gestión-del-proyecto)
-7. [Mejoras futuras](#7-mejoras-futuras)
+
 
 ---
 
