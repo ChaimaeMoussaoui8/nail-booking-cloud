@@ -1,5 +1,3 @@
-"""Lógica de negocio: búsqueda de huecos libres."""
-
 from datetime import date, datetime, timedelta
 
 from app.schedule_data import (
@@ -12,12 +10,10 @@ from app.schedule_data import (
 
 
 def overlaps(start_a: datetime, end_a: datetime, start_b: datetime, end_b: datetime) -> bool:
-    """Dos intervalos se solapan si cada uno empieza antes de que termine el otro."""
     return start_a < end_b and start_b < end_a
 
 
 def is_free(technician_id: int, start: datetime, end: datetime, appointments: list[dict]) -> bool:
-    """Comprueba que el técnico no tiene ninguna cita confirmada entre start y end."""
     for appointment in appointments:
         if appointment["technician_id"] != technician_id or appointment["status"] != "confirmed":
             continue
@@ -27,7 +23,6 @@ def is_free(technician_id: int, start: datetime, end: datetime, appointments: li
 
 
 def find_free_slots(day: date, duration_minutes: int, appointments: list[dict]) -> list[dict]:
-    """Devuelve los huecos de un día donde cabe un servicio de la duración indicada."""
     if day.weekday() not in WORKING_DAYS:
         return []
 

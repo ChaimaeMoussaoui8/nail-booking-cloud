@@ -1,5 +1,3 @@
-"""Tests de los endpoints de la API (el Servicio de Catálogo se simula)."""
-
 from datetime import datetime
 
 import pytest

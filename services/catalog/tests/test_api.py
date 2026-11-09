@@ -1,5 +1,3 @@
-"""Tests de los endpoints de la API."""
-
 from fastapi.testclient import TestClient
 
 from app.main import app

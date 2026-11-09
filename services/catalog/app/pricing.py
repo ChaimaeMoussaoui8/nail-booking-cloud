@@ -1,19 +1,13 @@
-"""Lógica de negocio: cálculo del precio y la duración de una combinación."""
-
 from app.catalog_data import EXTRAS, SERVICES
 
 MAX_NAILS = 10
 
 
 class QuoteError(ValueError):
-    """La combinación pedida no es válida."""
+    pass
 
 
 def calculate_quote(service_id: str, extras: list[dict]) -> dict:
-    """Devuelve el precio (€) y la duración (min) totales de un servicio con sus extras.
-
-    Cada extra es un dict con "extra_id" y, si se cobra por uña, "nails".
-    """
     if service_id not in SERVICES:
         raise QuoteError(f"Servicio desconocido: {service_id}")
 

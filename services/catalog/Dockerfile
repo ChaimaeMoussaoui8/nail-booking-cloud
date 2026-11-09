@@ -1,4 +1,3 @@
-# Etapa 1: instala las dependencias en un entorno virtual
 FROM python:3.13-slim AS builder
 
 ENV PIP_NO_CACHE_DIR=1 \
@@ -9,7 +8,6 @@ COPY requirements.txt .
 RUN python -m venv /opt/venv \
     && /opt/venv/bin/pip install -r requirements.txt
 
-# Etapa 2: imagen final, solo con lo necesario para ejecutar
 FROM python:3.13-slim
 
 ENV PATH="/opt/venv/bin:$PATH" \

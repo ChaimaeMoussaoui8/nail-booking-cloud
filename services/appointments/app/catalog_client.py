@@ -1,5 +1,3 @@
-"""Cliente REST para consultar el Servicio de Catálogo."""
-
 import os
 
 import httpx
@@ -18,7 +16,6 @@ class CatalogClient:
         self.base_url = base_url
 
     def quote(self, service_id: str, extras: list[dict]) -> dict:
-        """Pide al Servicio de Catálogo el precio y la duración de una combinación."""
         try:
             response = httpx.post(
                 f"{self.base_url}/quote",
