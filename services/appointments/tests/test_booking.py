@@ -1,5 +1,3 @@
-"""Tests unitarios de las reglas de reserva y cancelación."""
-
 from datetime import date, datetime
 
 import pytest
@@ -56,11 +54,11 @@ def test_otro_tecnico_puede_reservar_a_la_misma_hora():
 @pytest.mark.parametrize(
     "start, technician_id",
     [
-        (datetime(2026, 11, 9, 10, 0), 1),  # en el pasado
-        (datetime(2026, 11, 15, 10, 0), 1),  # domingo
-        (datetime(2026, 11, 16, 9, 0), 1),  # antes de abrir
-        (datetime(2026, 11, 16, 19, 0), 1),  # termina después de cerrar
-        (MONDAY_10, 99),  # técnico inexistente
+        (datetime(2026, 11, 9, 10, 0), 1),
+        (datetime(2026, 11, 15, 10, 0), 1),
+        (datetime(2026, 11, 16, 9, 0), 1),
+        (datetime(2026, 11, 16, 19, 0), 1),
+        (MONDAY_10, 99),
     ],
 )
 def test_reservas_no_validas(start, technician_id):
@@ -73,7 +71,6 @@ def test_cancelar_con_mas_de_24h_libera_el_hueco():
     appointment = book(store)
     cancel_appointment(store, appointment["id"], NOW)
     assert appointment["status"] == "cancelled"
-    # El hueco vuelve a estar libre
     assert book(store)["id"] == 2
 
 

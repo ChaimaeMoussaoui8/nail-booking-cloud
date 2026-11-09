@@ -1,5 +1,3 @@
-"""Catálogo de ejemplo del salón: servicios base y extras."""
-
 SERVICES = {
     "manicura-simple": {"name": "Manicura simple", "price": 25, "duration": 45},
     "manicura-japonesa": {"name": "Manicura japonesa", "price": 35, "duration": 60},
@@ -10,7 +8,6 @@ SERVICES = {
     "pedicura-biab": {"name": "Pedicura BIAB", "price": 45, "duration": 80},
 }
 
-# per_nail = True: el precio y la duración se multiplican por el número de uñas.
 EXTRAS = {
     "francesa": {"name": "Francesa / Cromo / Ombré", "price": 10, "duration": 15, "per_nail": False},
     "cat-eye": {"name": "Cat eye", "price": 7, "duration": 10, "per_nail": False},

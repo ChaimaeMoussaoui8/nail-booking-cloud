@@ -1,5 +1,3 @@
-"""Tests unitarios de la lógica de cálculo."""
-
 import pytest
 
 from app.pricing import QuoteError, calculate_quote
@@ -10,7 +8,6 @@ def test_servicio_sin_extras():
 
 
 def test_ejemplo_del_readme():
-    # Manicura BIAB + francesa + diseño en 2 uñas = 54 € y 100 min
     extras = [{"extra_id": "francesa"}, {"extra_id": "diseno", "nails": 2}]
     assert calculate_quote("manicura-biab", extras) == {"total_price": 54, "total_duration_minutes": 100}
 
