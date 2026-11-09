@@ -1,5 +1,3 @@
-"""Lógica de negocio: crear, cancelar y consultar citas."""
-
 from datetime import date, datetime, timedelta
 
 from app.availability import is_free
@@ -9,8 +7,6 @@ MIN_HOURS_TO_CANCEL = 24
 
 
 class BookingError(Exception):
-    """Error de negocio. Cada subclase corresponde a un código HTTP."""
-
     status_code = 400
 
 
@@ -31,23 +27,30 @@ class CancellationNotAllowed(BookingError):
 
 
 class AppointmentStore:
-    """Almacén de citas en memoria (se sustituirá por PostgreSQL)."""
-
     def __init__(self):
-        self.appointments: list[dict] = []
+        self._appointments: list[dict] = []
         self._next_id = 1
+
+    @property
+    def appointments(self) -> list[dict]:
+        return self._appointments
 
     def add(self, appointment: dict) -> dict:
         appointment["id"] = self._next_id
         self._next_id += 1
-        self.appointments.append(appointment)
+        self._appointments.append(appointment)
         return appointment
 
     def get(self, appointment_id: int) -> dict:
-        for appointment in self.appointments:
+        for appointment in self._appointments:
             if appointment["id"] == appointment_id:
                 return appointment
         raise AppointmentNotFound(f"No existe la cita {appointment_id}")
+
+    def set_status(self, appointment_id: int, status: str) -> dict:
+        appointment = self.get(appointment_id)
+        appointment["status"] = status
+        return appointment
 
 
 def create_appointment(
@@ -61,7 +64,6 @@ def create_appointment(
     total_price: int,
     now: datetime,
 ) -> dict:
-    """Crea una cita si el hueco es válido y está libre."""
     end = start + timedelta(minutes=duration_minutes)
 
     if technician_id not in TECHNICIANS:
@@ -89,18 +91,15 @@ def create_appointment(
 
 
 def cancel_appointment(store: AppointmentStore, appointment_id: int, now: datetime) -> dict:
-    """Cancela una cita si faltan al menos 24 horas. El hueco queda libre."""
     appointment = store.get(appointment_id)
     if appointment["status"] == "cancelled":
         raise InvalidBooking("La cita ya está cancelada")
     if appointment["start"] - now < timedelta(hours=MIN_HOURS_TO_CANCEL):
         raise CancellationNotAllowed("Las citas solo pueden cancelarse hasta 24 horas antes")
-    appointment["status"] = "cancelled"
-    return appointment
+    return store.set_status(appointment_id, "cancelled")
 
 
 def technician_agenda(store: AppointmentStore, technician_id: int, day: date) -> list[dict]:
-    """Citas confirmadas de un técnico en un día, ordenadas por hora."""
     if technician_id not in TECHNICIANS:
         raise AppointmentNotFound(f"No existe el técnico {technician_id}")
     agenda = [
