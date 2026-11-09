@@ -1,5 +1,4 @@
-"""API REST del Servicio de Citas."""
-
+import os
 from datetime import date, datetime
 from typing import Annotated
 
@@ -18,11 +17,24 @@ from app.booking import (
 from app.catalog_client import CatalogClient
 from app.schedule_data import TECHNICIANS
 
+
+def create_store():
+    database_url = os.getenv("DATABASE_URL")
+    if not database_url:
+        return AppointmentStore()
+
+    from app.db_store import PostgresAppointmentStore
+
+    db_store = PostgresAppointmentStore(database_url)
+    db_store.init_schema()
+    return db_store
+
+
 app = FastAPI(title="Servicio de Citas")
-store = AppointmentStore()
+store = create_store()
 
 
-def get_store() -> AppointmentStore:
+def get_store():
     return store
 
 
